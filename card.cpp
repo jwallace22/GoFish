@@ -3,6 +3,7 @@
 //
 #include "card.h"
 #include <string>
+#include <iostream>
 using namespace std;
 Card::Card() {
     myRank = 1;
@@ -50,8 +51,25 @@ string Card::rankString(int r) const {
             break;
         case 13: rank = "K";
             break;
-        default: rank = to_string(myRank);
+        case 2: rank = "2";
             break;
+        case 3: rank = "3";
+            break;
+        case 4: rank = "4";
+            break;
+        case 5: rank = "5";
+            break;
+        case 6: rank = "6";
+            break;
+        case 7: rank = "7";
+            break;
+        case 8: rank = "8";
+            break;
+        case 9: rank = "9";
+            break;
+        case 10: rank = "10";
+            break;
+
     }
     return rank;
 }

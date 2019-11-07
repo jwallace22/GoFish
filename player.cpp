@@ -1,7 +1,6 @@
 //
 // Created by Jeffrey on 11/5/2019.
 //
-#include <iostream>
 #include <string>
 #include <vector>
 #include "card.h"
@@ -57,4 +56,41 @@ Card Player::removeCardFromHand(Card c) {
         }
     }
     return c;
+}
+
+int Player::getHandSize() const {
+    return myHand.size();
+}
+
+int Player::getBookSize() const {
+    return myBook.size();
+}
+
+string Player::showHand() const {
+    string hand;
+    for(int i = 0; i < myHand.size(); i++){
+        hand = hand + myHand[i].toString() + " ";
+    }
+    return hand;
+}
+
+string Player::showBooks() const {
+    string books;
+    for(int i = 0; i < myBook.size(); i++){
+        books = books + myBook[i].toString() + " ";
+    }
+    return books;
+}
+
+bool Player::sameRankInHand(Card c) const {
+    for(int i = 0; i < myHand.size(); i++){
+        if(myHand[i].getRank() == c.getRank()){
+            return true;
+        }
+    }
+    return false;
+}
+
+Card Player::chooseCardFromHand() const {
+    return myHand[rand()%myHand.size()];
 }

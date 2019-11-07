@@ -33,7 +33,7 @@ void Deck::shuffle() {
 
 Card Deck::dealCard() {
     myIndex++;
-    return myCards[myIndex--];
+    return myCards[myIndex-1];
 }
 
 int Deck::size() const {
