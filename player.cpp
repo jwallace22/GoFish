@@ -5,6 +5,7 @@
 #include <vector>
 #include "card.h"
 #include "player.h"
+#include <cstdlib>
 
 using namespace std;
 
