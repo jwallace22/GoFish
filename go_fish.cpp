@@ -1,5 +1,5 @@
-// FILE: card_demo.cpp
-// This is a small demonstration program showing how the Card and Deck classes are used.
+//created by Jeffrey Wallace and Darren Nguyen
+//driver file for the GoFish! programming assignment for EE312. Fall 2019.
 #include <iostream>    // Provides oFile and cin
 #include <cstdlib>     // Provides EXIT_SUCCESS
 #include <fstream>
