@@ -21,7 +21,7 @@ int main( )
     ofstream oFile;
     oFile.open("gofish_results.txt");
     int numCards = 7;
-
+    cout << "Starting game" << endl;
     Player p1("Brad");
     Player p2("Chad");
 
@@ -33,6 +33,7 @@ int main( )
     p1.checkHandForBook();
     p2.checkHandForBook();
     oFile<< endl << "Let the game begin: " <<endl;
+    cout << "Playing game" << endl;
     while(d.size() || p1.getHandSize() || p2.getHandSize()) {
         oFile << endl << "NEW ROUND..." << endl;
         oFile << p1.getName() << " has : " << p1.showHand() << endl;
@@ -90,6 +91,15 @@ int main( )
         oFile << p2.getName() << " has books: " << p2.showBooks() << endl;
 
     }
+    oFile << endl;
+    oFile << "GAME ENDED, RESULTS: " << endl;
+    if(p1.getBookSize() > p2. getBookSize()){
+	oFile << p1.getName() << " won with " << p1.getBookSize()/2 << " books!";
+    }
+    else {
+        oFile << p2.getName() << " won with " << p2.getBookSize()/2 << " books!";
+    }
+    cout << "The game is over!" << endl;
     return EXIT_SUCCESS;
 }
 
