@@ -33,14 +33,15 @@ public:
     //OPTIONAL
     // comment out if you decide to not use it
     //this function will check a players hand for a pair.
-    //If a pair is found, it returns true and populates the two variables with the cards tha make the pair.
-
+    //If a pair is found, it returns true and populates the two variables with the cards tha make the pair
+    
+    //checks the hand for books
+    //removes cards from hand that are books and moves them to the player's books
     bool checkHandForBook();
 
 
 
-    //uses some strategy to choose one card from the player's
-    //hand so they can say "Do you have a 4?"
+    //player randomly selects a card from their hand.
     Card chooseCardFromHand() const;
 
     //Does the player have the card c in her hand?
