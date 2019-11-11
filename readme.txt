@@ -1,5 +1,5 @@
 This is the readme file for the GoFish! programming assignmnent.
-Written by Jeffrey Wallace and Darren Nguyen.
+Written by Jeffrey Wallace (jtw2992) and Darren Nguyen (ddn544).
 
 Once the file is unizpped:
 1. type make into the command terminal
