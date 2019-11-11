@@ -20,20 +20,20 @@ int main( )
 {
     ofstream oFile;
     oFile.open("gofish_results.txt");
-    int numCards = 7;
+    int numCards = 7; //only 2 players so each starts with 7 cards 
     cout << "Starting game" << endl;
     Player p1("Brad");
     Player p2("Chad");
 
     Deck d;  //create a deck of cards
-    d.shuffle();
+    d.shuffle(); //shuffle outside of the constructor so the code is more reusable
 
-    dealHand(d, p1, numCards);
+    dealHand(d, p1, numCards); //using the deal hand function given in the source code
     dealHand(d, p2, numCards);
-    p1.checkHandForBook();
+    p1.checkHandForBook(); //check the original hands for books
     p2.checkHandForBook();
     oFile<< endl << "Let the game begin: " <<endl;
-    cout << "Playing game" << endl;
+    cout << "Playing game..." << endl;
     while(d.size() || p1.getHandSize() || p2.getHandSize()) {
         oFile << endl << "NEW ROUND..." << endl;
         oFile << p1.getName() << " has : " << p1.showHand() << endl;
@@ -63,24 +63,24 @@ int main( )
 	oFile << p1.getName() << " has : " << p1.showHand() << endl;
         oFile << p2.getName() << " has : " << p2.showHand() << endl;
         if(p2.getHandSize() != 0) {
-            c = p2.chooseCardFromHand();
+            c = p2.chooseCardFromHand(); //we use our choose card function to make the game more random
             oFile << "Brad asks Chad: Do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
-            if (p1.sameRankInHand(c)) {
+            if (p1.sameRankInHand(c)) { //the suit doesn't matter for the check so we only need to compare the ranks
                 for (int i = 0; i < 4; i++) {
                     Card c2(c.getRank(), (Card::Suit) i);
                     if (p2.cardInHand(c2)) {
                         p1.addCard(p2.removeCardFromHand(c2));
-                        p1.checkHandForBook();
-                        if ((p1.getHandSize() == 0) && (d.size() > 0))
+                        p1.checkHandForBook(); //this check is in case the drawn card matches a rank in the player's hand
+                        if ((p1.getHandSize() == 0) && (d.size() > 0)) //after all checks for books we make sure the players hand is not empty
                             p1.addCard(d.dealCard());
                         if ((p2.getHandSize() == 0) && (d.size() > 0))
                             p2.addCard(d.dealCard());
                     }
                 }
             } else {
-                oFile << "Go Fish!" << endl;
+                oFile << "Go Fish!" << endl; 
                 p2.addCard(d.dealCard());
-                p2.checkHandForBook();
+                p2.checkHandForBook(); //check for books based on the new card and draw another card if their hand is empty afterward
                 if ((p2.getHandSize() == 0) && (d.size() > 0))
                     p2.addCard(d.dealCard());
             }
@@ -88,7 +88,7 @@ int main( )
         oFile << p1.getName() << " has : " << p1.showHand() << endl;
         oFile << p2.getName() << " has : " << p2.showHand() << endl;
         oFile << p1.getName() << " has books: " << p1.showBooks() << endl;
-        oFile << p2.getName() << " has books: " << p2.showBooks() << endl;
+        oFile << p2.getName() << " has books: " << p2.showBooks() << endl;//we show the books at the end of each round instead of at the end of each turn to save space
 
     }
     oFile << endl;
@@ -100,6 +100,7 @@ int main( )
         oFile << p2.getName() << " won with " << p2.getBookSize()/2 << " books!";
     }
     cout << "The game is over!" << endl;
+    oFile.close(); //close the file so we don't get errors later.
     return EXIT_SUCCESS;
 }
 
