@@ -62,10 +62,10 @@ int main( )
         }
 	oFile << p1.getName() << " has : " << p1.showHand() << endl;
         oFile << p2.getName() << " has : " << p2.showHand() << endl;
-        if(p2.getHandSize() != 0) {
-            c = p2.chooseCardFromHand(); //we use our choose card function to make the game more random
+        if(p1.getHandSize() != 0) {
+            c = p1.chooseCardFromHand(); //we use our choose card function to make the game more random
             oFile << "Brad asks Chad: Do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
-            if (p1.sameRankInHand(c)) { //the suit doesn't matter for the check so we only need to compare the ranks
+            if (p2.sameRankInHand(c)) { //the suit doesn't matter for the check so we only need to compare the ranks
                 for (int i = 0; i < 4; i++) {
                     Card c2(c.getRank(), (Card::Suit) i);
                     if (p2.cardInHand(c2)) {
