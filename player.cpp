@@ -24,10 +24,12 @@ void Player::bookCards(Card c1, Card c2) {
 
 bool Player::checkHandForBook() { //we changed this function's signature so that we call it once and it checks for any books.
     bool found = false; //if there are no pairs found, this variable remains unchanged.
-    for(int i = 0; i < myHand.size(); i++){
+    /*for(int i = 0; i < myHand.size(); i++){
         for(int j = i + 1;j<myHand.size();j++){
             if(myHand[i].getRank() == myHand[j].getRank()){
+
                 bookCards(myHand[i],myHand[j]);
+
                 found = true; //this allows for multiple books to be found instead of having to call the function multiple times.
             }
         }
@@ -35,6 +37,32 @@ bool Player::checkHandForBook() { //we changed this function's signature so that
     if(found) { //we remove after finding the books as to not mess up the indices in our nested for loops
         for (int i = 0; i < myBook.size(); i++) {
             removeCardFromHand(myBook[i]);
+        }
+
+
+    }*/
+    if(myHand.size() > 1) {
+        int indexStart = 0;
+        int indexIncrement = 1;
+        Card c1, c2;
+        while (indexStart + 1 < myHand.size()) {
+            c1 = myHand[indexStart];
+            c2 = myHand[indexIncrement];
+            if(c1.getRank() == c2.getRank()) {
+                bookCards(c1,c2);
+                removeCardFromHand(c1);
+                removeCardFromHand(c2);
+                indexStart = 0;
+                indexIncrement = 1;
+                found = true;
+            }
+            else {
+                indexIncrement++;
+                if(indexIncrement == myHand.size()) {
+                    indexStart++;
+                    indexIncrement = indexStart + 1;
+                }
+            }
         }
     }
     return found;

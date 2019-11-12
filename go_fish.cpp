@@ -30,66 +30,69 @@ int main( )
 
     dealHand(d, p1, numCards); //using the deal hand function given in the source code
     dealHand(d, p2, numCards);
-    p1.checkHandForBook(); //check the original hands for books
-    p2.checkHandForBook();
+
+    oFile << p1.getName() << " starting hand is : " << p1.showHand() << endl;
+    oFile << p2.getName() << " starting hand is : " << p2.showHand() << endl;
+
     oFile<< endl << "Let the game begin: " <<endl;
     cout << "Playing game..." << endl;
     while(d.size() || p1.getHandSize() || p2.getHandSize()) {
-        oFile << endl << "NEW ROUND..." << endl;
-        oFile << p1.getName() << " has : " << p1.showHand() << endl;
-        oFile << p2.getName() << " has : " << p2.showHand() << endl;
-        Card c = p2.chooseCardFromHand();
-        oFile << "Chad asks Brad: Do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
-        if (p1.sameRankInHand(c)) {
-            for (int i = 0; i < 4; i++) {
-                Card c2(c.getRank(), (Card::Suit) i);
-                if (p1.cardInHand(c2)) {
-                    p2.addCard(p1.removeCardFromHand(c2));
-                    p2.checkHandForBook();
-                    if((p1.getHandSize() == 0 )&&(d.size() > 0))
-                        p1.addCard(d.dealCard());
-                    if((p2.getHandSize() == 0 )&&(d.size() > 0))
-                        p2.addCard(d.dealCard());
-                }
-            }
-        }
-        else {
-            oFile << "Go Fish!" << endl;
-            p2.addCard(d.dealCard());
-            p2.checkHandForBook();
-            if((p2.getHandSize() == 0 )&&(d.size() > 0))
-                p2.addCard(d.dealCard());
-        }
-	oFile << p1.getName() << " has : " << p1.showHand() << endl;
-        oFile << p2.getName() << " has : " << p2.showHand() << endl;
-        if(p1.getHandSize() != 0) {
+        Card c, temp;
+        p1.checkHandForBook();
+        if(p1.getHandSize() > 0) {
             c = p1.chooseCardFromHand(); //we use our choose card function to make the game more random
-            oFile << "Brad asks Chad: Do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
+            oFile << "Brad: Chad, do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
             if (p2.sameRankInHand(c)) { //the suit doesn't matter for the check so we only need to compare the ranks
                 for (int i = 0; i < 4; i++) {
                     Card c2(c.getRank(), (Card::Suit) i);
                     if (p2.cardInHand(c2)) {
                         p1.addCard(p2.removeCardFromHand(c2));
                         p1.checkHandForBook(); //this check is in case the drawn card matches a rank in the player's hand
-                        if ((p1.getHandSize() == 0) && (d.size() > 0)) //after all checks for books we make sure the players hand is not empty
-                            p1.addCard(d.dealCard());
-                        if ((p2.getHandSize() == 0) && (d.size() > 0))
-                            p2.addCard(d.dealCard());
                     }
                 }
             } else {
-                oFile << "Go Fish!" << endl; 
-                p1.addCard(d.dealCard());
-                p1.checkHandForBook(); //check for books based on the new card and draw another card if their hand is empty afterward
-                if ((p1.getHandSize() == 0) && (d.size() > 0))
-                    p1.addCard(d.dealCard());
+                oFile << "Chad: Go Fish!" << endl;
+                temp = d.dealCard();
+                p1.addCard(temp);
+                oFile << "Brad: draws " << temp <<endl;
             }
         }
-        oFile << p1.getName() << " has : " << p1.showHand() << endl;
-        oFile << p2.getName() << " has : " << p2.showHand() << endl;
+        if(p1.getHandSize() == 0 && d.size() > 0) {
+            temp = d.dealCard();
+            p1.addCard(temp);
+            oFile << "Brad: draws " << temp <<endl;
+        }
+        oFile << p1.getName() << " hand is : " << p1.showHand() << endl;
+        oFile << p2.getName() << " hand is : " << p2.showHand() << endl;
+        oFile << endl;
+        p2.checkHandForBook();
+        if(p2.getHandSize() > 0) {
+            c = p2.chooseCardFromHand(); //we use our choose card function to make the game more random
+            oFile << "Chad: Brad, do you have any " << c.rankString(c.getRank()) << "'s?" << endl;
+            if (p1.sameRankInHand(c)) { //the suit doesn't matter for the check so we only need to compare the ranks
+                for (int i = 0; i < 4; i++) {
+                    Card c2(c.getRank(), (Card::Suit) i);
+                    if (p1.cardInHand(c2)) {
+                        p2.addCard(p1.removeCardFromHand(c2));
+                        p2.checkHandForBook(); //this check is in case the drawn card matches a rank in the player's hand
+                    }
+                }
+            } else {
+                oFile << "Brad: Go Fish!" << endl;
+                temp = d.dealCard();
+                p2.addCard(temp);
+                oFile << "Chad: draws " << temp <<endl;
+            }
+        }
+        if(p2.getHandSize() == 0 && d.size() > 0) {
+            temp = d.dealCard();
+            p2.addCard(temp);
+            oFile << "Chad: draws " << temp <<endl;
+        }
+        oFile << p1.getName() << " hand is : " << p1.showHand() << endl;
+        oFile << p2.getName() << " hand is : " << p2.showHand() << endl;
         oFile << p1.getName() << " has books: " << p1.showBooks() << endl;
-        oFile << p2.getName() << " has books: " << p2.showBooks() << endl;//we show the books at the end of each round instead of at the end of each turn to save space
-
+        oFile << p2.getName() << " has books: " << p2.showBooks() << endl << endl;
     }
     oFile << endl;
     oFile << "GAME ENDED, RESULTS: " << endl;
