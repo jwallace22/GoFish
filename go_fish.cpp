@@ -55,10 +55,10 @@ int main( )
         }
         else {
             oFile << "Go Fish!" << endl;
-            p1.addCard(d.dealCard());
-            p1.checkHandForBook();
-            if((p1.getHandSize() == 0 )&&(d.size() > 0))
-                p1.addCard(d.dealCard());
+            p2.addCard(d.dealCard());
+            p2.checkHandForBook();
+            if((p2.getHandSize() == 0 )&&(d.size() > 0))
+                p2.addCard(d.dealCard());
         }
 	oFile << p1.getName() << " has : " << p1.showHand() << endl;
         oFile << p2.getName() << " has : " << p2.showHand() << endl;
@@ -79,10 +79,10 @@ int main( )
                 }
             } else {
                 oFile << "Go Fish!" << endl; 
-                p2.addCard(d.dealCard());
-                p2.checkHandForBook(); //check for books based on the new card and draw another card if their hand is empty afterward
-                if ((p2.getHandSize() == 0) && (d.size() > 0))
-                    p2.addCard(d.dealCard());
+                p1.addCard(d.dealCard());
+                p1.checkHandForBook(); //check for books based on the new card and draw another card if their hand is empty afterward
+                if ((p1.getHandSize() == 0) && (d.size() > 0))
+                    p1.addCard(d.dealCard());
             }
         }
         oFile << p1.getName() << " has : " << p1.showHand() << endl;
@@ -94,10 +94,13 @@ int main( )
     oFile << endl;
     oFile << "GAME ENDED, RESULTS: " << endl;
     if(p1.getBookSize() > p2. getBookSize()){
-	oFile << p1.getName() << " won with " << p1.getBookSize()/2 << " books!";
+	oFile << p1.getName() << " won with " << p1.getBookSize()/2 << " books!"<<endl;
     }
-    else {
-        oFile << p2.getName() << " won with " << p2.getBookSize()/2 << " books!";
+    else if(p1.getBookSize() < p2. getBookSize()) {
+        oFile << p2.getName() << " won with " << p2.getBookSize()/2 << " books!"<<endl;
+    }
+    else{
+        oFile << "It is a tie!" << endl;
     }
     cout << "The game is over!" << endl;
     oFile.close(); //close the file so we don't get errors later.
@@ -111,6 +114,3 @@ void dealHand(Deck &d, Player &p, int numCards)
     for (int i=0; i < numCards; i++)
         p.addCard(d.dealCard());
 }
-
-
-
